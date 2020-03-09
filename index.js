@@ -8,13 +8,10 @@ request({
   //console.log(body);
   var soup = new JSSoup(body);
 
-  var tagg = soup.findAll('div','excerpt')
-console.log(tagg[0].nextElement.nextElement._text)
-/* for (const elt in tagg) {
-    if (elt.name === 'section') {
-        console.log(elt);
-   }
-} */
+  var tag = soup.findAll('div','excerpt')
+  const url = tag[0].nextElement.nextElement.nextElement.attrs.href
+    console.log(url)
+
   
 
 });
