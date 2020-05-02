@@ -9,6 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
+    "discord.js": "^12.2.0",
     "jest": "^25.1.0",
     "jssoup": "^0.0.10",
     "request": "^2.88.2",
