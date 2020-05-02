@@ -5,4 +5,5 @@ function define(name, value) {
     });
 }
 
-define("token", 'TOKEN');
+define("tokenSlack", '');
+define("tokenDiscord", '');
