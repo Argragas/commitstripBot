@@ -1,6 +1,8 @@
 var JSSoup = require('jssoup').default;
 const SlackBot = require('slackbots');
 const axios = require('axios');
+const fs = require('fs');
+
 const token = require('./token');
 
 var LastStrip = '';
@@ -30,6 +32,7 @@ function isNewStrip(){
   getLastStrip().then( value => {
     if (value !== LastStrip) {
       LastStrip = value;
+      writeFile(LastStrip);
       console.log(LastStrip)
       bot.postMessageToChannel(
         'troll',
@@ -46,6 +49,7 @@ const bot = new SlackBot({
 
 // Start
 bot.on('start', () => {
+  readFile()
   isNewStrip();
   var i = setInterval(function(){
     isNewStrip();
@@ -55,14 +59,19 @@ bot.on('start', () => {
 // Error
 bot.on('error', err => console.log(err));
 
-// Help
-function runHelp() {
-  const params = {
-    icon_emoji: ':question:'
-  };
 
-  bot.postMessageToChannel(
-    'troll',
-    params
-  );
+function writeFile(text) {
+  fs.writeFile('lastCommit', text, 'utf8',function(err) {
+    if (err) throw err;
+    console.log('writing new url complete');
+    });
+}
+
+function readFile() {
+  fs.readFile('lastCommit', 'utf8', function readFileCallback(err, data){
+      if (err){
+          console.log(err);
+      } else {
+      LastStrip = data;
+  }});
 }
